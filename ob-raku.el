@@ -2,21 +2,21 @@
 
 ;; Author: Tim Van den Langenbergh https://github.com/tmtvl
 ;; Keywords: literate programming, reproducible research
-;; Homepage: https://github.com/tmtvl/ob-raku
+;; Homepage: https://github.com/masukomi/ob-raku
 ;; Version: 0.05
 ;; News: 0.05 --- Added initial support for parentheses and commas in strings
-in lists without breaking the lists on return.
+;; in lists without breaking the lists on return.
 ;;       0.04 --- Added square brackets to list splitting, so as to split
-embedded arrays as well as lists.
+;; embedded arrays as well as lists.
 ;;       0.03 --- Removed the double execution, simplified the formatting of
-the Raku output, fixed hline support.
+;; the Raku output, fixed hline support.
 ;;       0.02 --- Added support for tables, removed unneeded require
-statements, error when trying to use a session.
+;; statements, error when trying to use a session.
 ;;       0.01 --- Initial release. Accept inputs, support for output and value
-results.
+;; results.
 
 ;;; License:
-
+;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation; either version 3, or (at your option)
@@ -27,10 +27,6 @@ results.
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
 ;;
-;; You should have received a copy of the GNU General Public License
-;; along with GNU Emacs; see the file COPYING.  If not, write to the
-;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-;; Boston, MA 02110-1301, USA.
 
 ;;; Commentary:
 
