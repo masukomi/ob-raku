@@ -2,6 +2,32 @@
 
 Bindings for [[https://orgmode.org/worg/org-contrib/babel/][org-babel]] support for [[https://raku.org/][Raku]] (née Perl6).
 
+** Usage
+Same as other org-babble things. In most cases you'll want to be sure to include =:results output= in your =+begin_src= line.
+
+#+begin_src org-mode
+
+,#+begin_src raku :results output
+say("boy howdy!");
+,#+end_src
+
+#+RESULTS:
+: boy howdy!
+
+
+,#+begin_src raku
+say("boy howdy!");
+,#+end_src
+
+,#+RESULTS:
+: Bool::True
+
+
+#+end_src
+
+
+
+
 Not in Melpa... yet. I'll get there soon.
 
 
