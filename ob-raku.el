@@ -1,4 +1,4 @@
-;; Copyright (C) Tim Van den Langenbergh
+;; Copyright (C) 2020 Tim Van den Langenbergh
 
 ;; Author: Tim Van den Langenbergh https://github.com/tmtvl
 ;; Keywords: literate programming, reproducible research
@@ -192,9 +192,10 @@ Return the initialized SESSION."
   "Evaluate the BODY with Raku.
 If SESSION is not provided, evaluate in an external process.
 If RESULT-TYPE is not provided, assume \"value\"."
-  (org-babel-raku-table-or-string (if (and session (not (string= session
+  (org-babel-raku-table-or-string
+   (if (and session (not (string= session
 "none")))
-      (org-babel-raku-evaluate-session session body result-type)
+    (org-babel-raku-evaluate-session session body result-type)
     (org-babel-raku-evaluate-external body result-type))))
 
 (defconst org-babel-raku-wrapper
