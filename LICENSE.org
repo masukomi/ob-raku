@@ -1,0 +1,15 @@
+#+title: License
+
+Written by, and Copyright (C) 2020 [[https://github.com/tmtvl][Tim Van den Langenbergh]].
+
+License:
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the [[https://www.gnu.org/licenses/licenses.html#GPL][GNU General Public License]] as published by
+the Free Software Foundation; either [[https://www.gnu.org/licenses/gpl-3.0.en.html][version 3]], or (at your option)
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.

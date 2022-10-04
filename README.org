@@ -1,0 +1,11 @@
+#+title: Readme
+
+Bindings for [[https://orgmode.org/worg/org-contrib/babel/][org-babel]] support for [[https://raku.org/][Raku]] (née Perl6).
+
+Not in Melpa... yet. I'll get there soon.
+
+
+** License & Credits
+Written by [[https://github.com/tmtvl][Tim Van den Langenbergh]].
+
+Distributed under GPL v3 or higher. See LICENSE.org file.
