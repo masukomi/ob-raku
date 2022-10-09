@@ -1,10 +1,17 @@
-;; Copyright (C) 2020 Tim Van den Langenbergh
+;;; ob-raku.el --- Provides raku support for org-babel
+
+;; Copyright (C) 2020 Tim Van den Langenbergh,
+;;               2022 Kay Rhodes (a.k.a masukomi)
 
 ;; Author: Tim Van den Langenbergh https://github.com/tmtvl
-;; Keywords: literate programming, reproducible research
+;; Keywords: literate programming, reproducible research, languages
 ;; Homepage: https://github.com/masukomi/ob-raku
-;; Version: 0.05
-;; News: 0.05 --- Added initial support for parentheses and commas in strings
+;; Package-Requires: ((emacs "24.1"))
+;;
+;;
+;; Version: 1.0.0
+;; News: 1.0.0 --- Applied package-lint suggestions. Switched to Semantic Versioning.
+;;       0.05 --- Added initial support for parentheses and commas in strings
 ;; in lists without breaking the lists on return.
 ;;       0.04 --- Added square brackets to list splitting, so as to split
 ;; embedded arrays as well as lists.
