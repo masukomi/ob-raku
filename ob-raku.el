@@ -47,7 +47,7 @@
 
 (defvar org-babel-default-header-args:raku '())
 
-(defvar org-babel-raku-command "raku"
+(defvar ob-raku-command "raku"
   "Command to run Raku.")
 
 (defun org-babel-expand-body:raku (body params &optional processed-params)
@@ -68,7 +68,7 @@ Use the PROCESSED-PARAMS if defined."
              "@"
            "$")
          (car pair)
-         (org-babel-raku-var-to-raku (cdr pair))))
+         (ob-raku-var-to-raku (cdr pair))))
       vars
       "\n")
      "\n" body "\n")))
@@ -81,7 +81,7 @@ Use the PROCESSED-PARAMS if defined."
          (result-params (cdr (assoc :result-params params)))
          (full-body (org-babel-expand-body:raku body params processed-params)))
     (org-babel-reassemble-table
-     (org-babel-raku-evaluate full-body session result-type)
+     (ob-raku-evaluate full-body session result-type)
      (org-babel-pick-name
       (cdr (assoc :colname-names params)) (cdr (assoc :colnames params)))
      (org-babel-pick-name
@@ -91,13 +91,13 @@ Use the PROCESSED-PARAMS if defined."
   "Prepare SESSION according to the header arguments specified in PARAMS."
   (error "Sessions are not supported for Raku"))
 
-(defun org-babel-raku-var-to-raku (var)
+(defun ob-raku-var-to-raku (var)
   "Convert an elisp value VAR to a Raku definition of the same value."
   (if (listp var)
       (concat
        "("
        (mapconcat
-        #'org-babel-raku-var-to-raku
+        #'ob-raku-var-to-raku
         var
         ", ")
        ")")
@@ -105,7 +105,7 @@ Use the PROCESSED-PARAMS if defined."
         "\"HLINE\""
       (format "%S" var))))
 
-(defun org-babel-raku-escape-nested-list-delimiters (list)
+(defun ob-raku-escape-nested-list-delimiters (list)
   "Escapes any commas or parentheses found in strings contained in the given
 LIST."
   (let ((in-string nil))
@@ -128,7 +128,7 @@ LIST."
            (split-string list "" t)
            "")))
 
-(defun org-babel-raku-unescape-parens-and-commas (string)
+(defun ob-raku-unescape-parens-and-commas (string)
   "Unescapes parentheses and commas in STRING."
   ;;(replace-regexp-in-string "\\\\\([][(),]\)" "\1" string) ;; This doesn't
 work.
@@ -136,43 +136,43 @@ work.
     (if index
         (concat
          (substring string 0 index)
-         (org-babel-raku-unescape-parens-and-commas
+         (ob-raku-unescape-parens-and-commas
           (substring string (+ index 1))))
       string)))
 
-(defun org-babel-raku-split-list (list)
+(defun ob-raku-split-list (list)
   "Split LIST on a comma or parentheses, ignoring those in a string."
   (mapcar
    (lambda (pairstring)
      (mapcar
       (lambda (string)
-        (org-babel-raku-unescape-parens-and-commas string))
+        (ob-raku-unescape-parens-and-commas string))
       (split-string pairstring "[^\\], " t)))
-   (split-string (org-babel-raku-escape-nested-list-delimiters (substring list
+   (split-string (ob-raku-escape-nested-list-delimiters (substring list
 2 -2))
                  "[^\\][][()]"
                  t)))
 
-(defun org-babel-raku-sanitize-table (table)
+(defun ob-raku-sanitize-table (table)
   "Recursively sanitize the values in the given TABLE."
   (if (listp table)
-      (let ((sanitized-table (mapcar 'org-babel-raku-sanitize-table table)))
+      (let ((sanitized-table (mapcar 'ob-raku-sanitize-table table)))
         (if (and (stringp (car sanitized-table))
                  (string= (car sanitized-table) "HLINE"))
             'hline
           sanitized-table))
     (org-babel-script-escape table)))
 
-(defun org-babel-raku-table-or-string (results)
+(defun ob-raku-table-or-string (results)
   "If RESULTS look like a table, then convert them into an elisp table.
 Otherwise return RESULTS as a string."
   (cond
    ((or (string-prefix-p "$[" results)
         (string-prefix-p "$(" results))
-    (org-babel-raku-sanitize-table
-     (org-babel-raku-split-list results)))
+    (ob-raku-sanitize-table
+     (ob-raku-split-list results)))
    ((string-prefix-p "{" results)
-    (org-babel-raku-sanitize-table
+    (ob-raku-sanitize-table
      (mapcar
       (lambda (pairstring)
         (split-string pairstring " => " t))
@@ -182,23 +182,23 @@ Otherwise return RESULTS as a string."
        t))))
    (t (org-babel-script-escape results))))
 
-(defun org-babel-raku-initiate-session (&optional session)
+(defun ob-raku-initiate-session (&optional session)
   "If there is not a current inferior-process-buffer in SESSION then create.
 Return the initialized SESSION."
   (unless (string= session "none")
     (if session (error "Sessions are not supported for Raku"))))
 
-(defun org-babel-raku-evaluate (body &optional session result-type)
+(defun ob-raku-evaluate (body &optional session result-type)
   "Evaluate the BODY with Raku.
 If SESSION is not provided, evaluate in an external process.
 If RESULT-TYPE is not provided, assume \"value\"."
-  (org-babel-raku-table-or-string
+  (ob-raku-table-or-string
    (if (and session (not (string= session
 "none")))
-    (org-babel-raku-evaluate-session session body result-type)
-    (org-babel-raku-evaluate-external body result-type))))
+    (ob-raku-evaluate-session session body result-type)
+    (ob-raku-evaluate-external body result-type))))
 
-(defconst org-babel-raku-wrapper
+(defconst ob-raku-wrapper
   "sub _MAIN {
 %s
 }
@@ -211,21 +211,21 @@ $result.raku
 \"%s\".IO.spurt(\"{ _FORMATTER(_MAIN()) }\\n\");"
   "Wrapper for grabbing the final value from Raku code.")
 
-(defun org-babel-raku-evaluate-external (body &optional result-type)
+(defun ob-raku-evaluate-external (body &optional result-type)
   "Evaluate the BODY with an external Raku process.
 If RESULT-TYPE is not provided, assume \"value\"."
   (if (and result-type (string= result-type "output"))
-      (org-babel-eval org-babel-raku-command body)
+      (org-babel-eval ob-raku-command body)
     (let ((temp-file (org-babel-temp-file "raku-" ".raku")))
       (org-babel-eval
-       org-babel-raku-command
+       ob-raku-command
        (format
-        org-babel-raku-wrapper
+        ob-raku-wrapper
         body
         (org-babel-process-file-name temp-file 'noquote)))
       (org-babel-eval-read-file temp-file))))
 
-(defun org-babel-raku-evaluate-session (session body &optional result-type)
+(defun ob-raku-evaluate-session (session body &optional result-type)
   "Evaluate the BODY with the Raku process running in SESSION.
 If RESULT-TYPE is not provided, assume \"value\"."
   (error "Sessions are not supported for Raku"))
