@@ -10,7 +10,8 @@
 ;;
 ;;
 ;; Version: 1.0.0
-;; News: 1.0.0 --- Applied package-lint suggestions. Switched to Semantic Versioning.
+;; News: 1.0.1 --- minor correction to line that became uncommented
+;; 	 1.0.0 --- Applied package-lint suggestions. Switched to Semantic Versioning.
 ;;       0.05 --- Added initial support for parentheses and commas in strings
 ;; in lists without breaking the lists on return.
 ;;       0.04 --- Added square brackets to list splitting, so as to split
@@ -113,8 +114,7 @@ Use the PROCESSED-PARAMS if defined."
       (format "%S" var))))
 
 (defun ob-raku-escape-nested-list-delimiters (list)
-  "Escapes any commas or parentheses found in strings contained in the given
-LIST."
+  "Escapes any commas or parentheses found in strings contained in the given LIST."
   (let ((in-string nil))
     (mapconcat
            (lambda (string)
@@ -137,8 +137,8 @@ LIST."
 
 (defun ob-raku-unescape-parens-and-commas (string)
   "Unescapes parentheses and commas in STRING."
-  ;;(replace-regexp-in-string "\\\\\([][(),]\)" "\1" string) ;; This doesn't
-work.
+  ;;(replace-regexp-in-string "\\\\\([][(),]\)" "\1" string)
+  ;; This doesn't work.
   (let ((index (string-match "\\\\[][(),]" string)))
     (if index
         (concat
