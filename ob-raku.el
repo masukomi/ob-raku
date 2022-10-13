@@ -163,7 +163,7 @@ Use the PROCESSED-PARAMS if defined."
 (defun ob-raku-sanitize-table (table)
   "Recursively sanitize the values in the given TABLE."
   (if (listp table)
-      (let ((sanitized-table (mapcar 'ob-raku-sanitize-table table)))
+      (let ((sanitized-table (mapcar #'ob-raku-sanitize-table table)))
         (if (and (stringp (car sanitized-table))
                  (string= (car sanitized-table) "HLINE"))
             'hline
